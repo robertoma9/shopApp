@@ -23,14 +23,17 @@ const ProductsOverviewScreen: React.FC = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<any>();
 
-  const selectItemHandler = (id: string, title: string) => {
+  const selectItemHandler = (id: string, title: string): void => {
     navigation.navigate('ProductDetail', {
       productId: id,
       productTitle: title,
     });
   };
 
+  // A única diferença entre useLayoutEffect e useEffect é que o primeiro está relacionado apenas
+  // a efeitos colaterais do DOM
   useLayoutEffect(() => {
+    // navigation.setOptions({}) -> utilizado para definir estilo do cabeçalho da tela atual
     navigation.setOptions({
       headerLeft: () => (
         <HeaderButtons HeaderButtonComponent={HeaderButton}>

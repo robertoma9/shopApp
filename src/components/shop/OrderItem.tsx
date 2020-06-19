@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
 import CartItem from './CartItem';
@@ -6,6 +6,8 @@ import Colors from '../../constants/Colors';
 import Card from '../UI/Card';
 
 import { Item } from '../../store/actions/types';
+
+import useOrderItem from './useOrderItem';
 
 type OrderItemProp = {
   /*Type que define as props. Não precisa de "children" pois já se trata de uma prop padrão para
@@ -16,7 +18,7 @@ type OrderItemProp = {
 };
 
 const OrderItem: React.FC<OrderItemProp> = ({ amount, date, items }) => {
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useOrderItem();
 
   return (
     <Card style={styles.orderItem}>
@@ -27,9 +29,9 @@ const OrderItem: React.FC<OrderItemProp> = ({ amount, date, items }) => {
       <Button
         color={Colors.primary}
         title={showDetails ? 'Hide Details' : 'Show Details'}
-        onPress={() => {
-          setShowDetails((prevState) => !prevState);
-        }}
+        onPress={() =>
+          showDetails ? setShowDetails(false) : setShowDetails(true)
+        }
       />
       {showDetails && (
         <View style={styles.detailItems}>

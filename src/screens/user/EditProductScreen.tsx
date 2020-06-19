@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useLayoutEffect } from 'react';
+import React, { useLayoutEffect, memo } from 'react';
 import {
   View,
   ScrollView,
@@ -9,10 +9,7 @@ import {
 } from 'react-native';
 
 //  Redux imports
-import { RootState } from '../../../App';
-import { useSelector, useDispatch } from 'react-redux';
 import { useRoute, RouteProp } from '@react-navigation/native';
-import * as productsActions from '../../store/actions/products';
 
 // Navigation imports
 import { useNavigation } from '@react-navigation/native';
@@ -22,6 +19,9 @@ import { AdminNavigatorParams } from '../../navigation/NavigationParams';
 // Components
 import HeaderButton from '../../components/UI/HeaderButton';
 
+// Custom hooks
+import useEditProduct from './useEditProduct';
+
 type EditScreenRouteProp = RouteProp<AdminNavigatorParams, 'EditProduct'>;
 
 const EditProductScreen: React.FC = () => {
@@ -29,47 +29,24 @@ const EditProductScreen: React.FC = () => {
   const route = useRoute<EditScreenRouteProp>();
 
   const prodId = route.params?.productId;
-  const editedProduct = useSelector((state: RootState) =>
-    state.products.userProducts.find((prod) => prod.id === prodId),
-  );
-  const dispatch = useDispatch();
 
-  const [title, setTitle] = useState(editedProduct ? editedProduct.title : '');
-  const [imageUrl, setImageUrl] = useState(
-    editedProduct ? editedProduct.imageUrl : '',
-  );
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState(
-    editedProduct ? editedProduct.description : '',
-  );
-
-  const submitHandler = useCallback(() => {
-    if (editedProduct) {
-      dispatch(
-        productsActions.updateProduct(prodId, title, description, imageUrl),
-      );
-    } else {
-      dispatch(
-        productsActions.createProduct(title, description, imageUrl, +price),
-      );
-    }
-    navigation.goBack();
-  }, [
-    dispatch,
-    prodId,
+  const [
     title,
-    description,
+    setTitle,
     imageUrl,
+    setImageUrl,
     price,
+    setPrice,
+    description,
+    setDescription,
+    submitHandler,
     editedProduct,
-    navigation,
-  ]);
+  ] = useEditProduct(prodId);
 
-  // useEffect(() => {
-  //   navigation.setParams({ submit: submitHandler });
-  // }, [submitHandler, navigation]);
-
+  // A única diferença entre useLayoutEffect e useEffect é que o primeiro está relacionado apenas
+  // a efeitos colaterais do DOM
   useLayoutEffect(() => {
+    // navigation.setOptions({}) -> utilizado para definir estilo do cabeçalho da tela atual
     navigation.setOptions({
       headerTitle: editedProduct ? 'Edit Product' : 'Add Product',
       headerRight: () => (
@@ -147,4 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EditProductScreen;
+export default memo(EditProductScreen);

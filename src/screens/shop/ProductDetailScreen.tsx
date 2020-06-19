@@ -39,7 +39,10 @@ const ProductDetailScreen: React.FC = () => {
 
   const dispatch = useDispatch();
 
+  // A única diferença entre useLayoutEffect e useEffect é que o primeiro está relacionado apenas
+  // a efeitos colaterais do DOM
   useLayoutEffect(() => {
+    // navigation.setOptions({}) -> utilizado para definir estilo do cabeçalho da tela atual
     navigation.setOptions({ title: selectedProduct?.title });
   }, [navigation, selectedProduct]);
 

@@ -11,7 +11,7 @@ import * as cartActions from '../../store/actions/cart';
 import * as ordersActions from '../../store/actions/orders';
 
 const CartScreen: React.FC = () => {
-  const cartTotalAmount = useSelector(
+  const cartTotalAmount: number = useSelector(
     (state: RootState) => state.cart.totalAmount,
   );
   const cartItems = useSelector((state: RootState) => {

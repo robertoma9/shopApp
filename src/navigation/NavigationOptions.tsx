@@ -24,7 +24,10 @@ export const drawerNavigationOptions = {
   activeTintColor: Colors.primary,
 };
 
-export const productsDrawerIcon = (drawerConfig: DrawerIconProps) => (
+//  (drawerConfig: <tipo-de-prop>) : <tipo-de-retorno> -> ex: React.Node (Elemento JSX)
+export const productsDrawerIcon = (
+  drawerConfig: DrawerIconProps,
+): React.ReactNode => (
   <Ionicons
     name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
     size={23}
@@ -32,7 +35,9 @@ export const productsDrawerIcon = (drawerConfig: DrawerIconProps) => (
   />
 );
 
-export const ordersDrawerIcon = (drawerConfig: DrawerIconProps) => (
+export const ordersDrawerIcon = (
+  drawerConfig: DrawerIconProps,
+): React.ReactNode => (
   <Ionicons
     name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
     size={23}
@@ -40,7 +45,9 @@ export const ordersDrawerIcon = (drawerConfig: DrawerIconProps) => (
   />
 );
 
-export const adminDrawerIcon = (drawerConfig: DrawerIconProps) => (
+export const adminDrawerIcon = (
+  drawerConfig: DrawerIconProps,
+): React.ReactNode => (
   <Ionicons
     name={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
     size={23}
