@@ -40,7 +40,7 @@ const ProductItem: React.FC<ProductItemProp> = ({
         <TouchableCmp onPress={onSelect} useForeground>
           <View>
             <View style={styles.imageContainer}>
-              <Image style={styles.image} source={{uri: image}} />
+              <Image style={styles.image} source={{ uri: image }} />
             </View>
             <View style={styles.details}>
               <Text style={styles.title}>{title}</Text>

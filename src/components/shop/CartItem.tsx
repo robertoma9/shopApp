@@ -10,8 +10,8 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+//  Interface que define as props
 interface CartItemProps {
-  //Interface que define as props
   quantity: number;
   amount: number;
   title: string;
@@ -19,8 +19,8 @@ interface CartItemProps {
   onRemove?: (ev: NativeSyntheticEvent<NativeTouchEvent>) => void; // Interrogação torna a prop opcional
 }
 
+// const <Nome-do-componente> : <Tipo-do-componente><Definição-das-props>
 const CartItem: React.FC<CartItemProps> = ({
-  // const <Nome-do-componente> : <Tipo-do-componente><Definição-das-props>
   quantity,
   amount,
   title,
